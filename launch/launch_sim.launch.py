@@ -19,7 +19,7 @@ def generate_launch_description():
 
     package_name='nsbot' 
     pkg_share = FindPackageShare(package='nsbot').find('nsbot')    
-    world_file_name = 'empty.world'
+    world_file_name = 'smalltown.world'
     world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
     world = LaunchConfiguration('world')
@@ -54,13 +54,32 @@ def generate_launch_description():
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'nsbot'],
+                                   '-entity', 'nsbot', 
+                                   '-x', LaunchConfiguration('x_pose'), 
+                                   '-y', LaunchConfiguration('y_pose'), 
+                                   '-z', LaunchConfiguration('z_pose'), 
+                                   '-P', LaunchConfiguration('P_pose'), 
+                                   '-R', LaunchConfiguration('R_pose'), 
+                                   '-Y', LaunchConfiguration('Y_pose'),
+                                   ],
                         output='screen')
 
-
+    x_pose_arg = DeclareLaunchArgument('x_pose', default_value='0.0')
+    y_pose_arg = DeclareLaunchArgument('y_pose', default_value='0.0')   
+    z_pose_arg = DeclareLaunchArgument('z_pose', default_value='0.0')   
+    P_pose_arg = DeclareLaunchArgument('P_pose', default_value='0.0')       
+    R_pose_arg = DeclareLaunchArgument('R_pose', default_value='0.0')       
+    Y_pose_arg = DeclareLaunchArgument('Y_pose', default_value='180.0')       
+    
     # Launch them all!
     return LaunchDescription([
         declare_world_cmd,
+        x_pose_arg,
+        y_pose_arg,
+        z_pose_arg,
+        P_pose_arg,
+        R_pose_arg,
+        Y_pose_arg,
         rsp,
         start_gazebo_server_cmd,
         start_gazebo_client_cmd,

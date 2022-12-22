@@ -4073,12 +4073,6 @@
       </camera>
     </gui>
     
-    <!-- Import our own robot -->
-    <include>
-      <!-- Set the location where we want to spawn the robot -->
-      <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-      <!-- navbot -->
-      <uri>model://navbot_descript</uri>
-    </include>
+
   </world>
 </sdf>
