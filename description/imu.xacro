@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <joint name="imu_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="imu_frame"/>
+        <origin xyz="0.2 0 0.155" rpy="0 0 0"/>
+    </joint>
+
+    <link name="imu_frame">
+        <visual>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <gazebo reference="imu_frame">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    
+
+  
+</robot>
