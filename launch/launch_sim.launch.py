@@ -18,7 +18,7 @@ def generate_launch_description():
     # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
 
     package_name='nsbot' 
-    pkg_share = FindPackageShare(package='nsbot').find('navbot')    
+    pkg_share = FindPackageShare(package='nsbot').find('nsbot')    
     world_file_name = 'empty.world'
     world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
