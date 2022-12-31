@@ -1,0 +1,12 @@
+<?xml version='1.0' ?>
+<launch>
+  <arg name="number_of_robots" default="3"/>
+
+  <!-- Launches World now independently form spawning robot -->
+  <include file="$(find-pkg-share nsbot)/launch/start_world.launch.py"/>
+
+  <!-- launches multiple basic robots -->
+  <include file="$(find-pkg-share nsbot)/launch/robot_1.launch.py"/>
+  <include file="$(find-pkg-share nsbot)/launch/robot_2.launch.py"/>
+  <include file="$(find-pkg-share nsbot)/launch/robot_3.launch.py"/>
+</launch>
