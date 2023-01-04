@@ -7,6 +7,8 @@
 
   <!-- launches multiple basic robots -->
   <include file="$(find-pkg-share nsbot)/launch/robot_1.launch.py"/>
+  
   <include file="$(find-pkg-share nsbot)/launch/robot_2.launch.py"/>
   <include file="$(find-pkg-share nsbot)/launch/robot_3.launch.py"/>
+  
 </launch>

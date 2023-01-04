@@ -11,13 +11,13 @@ from launch.actions import OpaqueFunction
 
 def gen_robot_info():
 
-    pose_1 = [0.0, 2.0]
+    pose_1 = [-12.0, 2.0]
 
     robot_name = "robot_3"
     x_pos = pose_1[0]
     y_pos = pose_1[1]
     robot = {'name': robot_name, 'x_pose': x_pos,
-                    'y_pose': y_pos, 'z_pose': 0.1, 'Y_pose': 0.0}
+                    'y_pose': y_pos, 'z_pose': 0.1, 'Y_pose':  -3.14159/4.0}
 
 
     return robot
@@ -40,6 +40,7 @@ def launch_setup(context, *args, **kwargs):
             launch_arguments={
                 'x_spawn': TextSubstitution(text=str(robot['x_pose'])),
                 'y_spawn': TextSubstitution(text=str(robot['y_pose'])),
+                'Y_spawn': TextSubstitution(text=str(robot['Y_pose'])),
                 'entity_name': robot['name']
             }.items()))
 

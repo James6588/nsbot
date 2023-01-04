@@ -31,12 +31,12 @@
         <material>Gazebo/Red</material>
         <sensor name="laser" type="ray">
             <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
+            <visualize>false</visualize>
+            <update_rate>5</update_rate>
             <ray> 
                 <scan>
                     <horizontal>
-                        <samples>360</samples>
+                        <samples>120</samples>
                         <min_angle>-3.14</min_angle>
                         <max_angle>3.14</max_angle>
                     </horizontal>
@@ -51,7 +51,7 @@
                     <argument>~/out:=scan</argument>
                 </ros> 
                 <output_type>sensor_msgs/LaserScan</output_type>
-                <frame_name>laser_link</frame_name>
+                <frame_name>$(arg robot_name)/laser_link</frame_name>
             </plugin>
 
         </sensor>

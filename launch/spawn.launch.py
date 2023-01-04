@@ -15,6 +15,7 @@ def launch_setup(context, *args, **kwargs):
 
     x_spawn = LaunchConfiguration('x_spawn').perform(context)
     y_spawn = LaunchConfiguration('y_spawn').perform(context)
+    Y_spawn = LaunchConfiguration('Y_spawn').perform(context)
     entity_name = LaunchConfiguration('entity_name').perform(context)
 
 
@@ -53,7 +54,7 @@ def launch_setup(context, *args, **kwargs):
         output='screen',
         arguments=['-entity', entity_name,
                    '-robot_namespace', entity_name,
-                   '-x', x_spawn, '-y', y_spawn,
+                   '-x', x_spawn, '-y', y_spawn, '-Y', Y_spawn,
                    '-topic', 'robot_description',
                    '-timeout', '120.0'
                    ]

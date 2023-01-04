@@ -15,7 +15,7 @@ def generate_launch_description():
 
 
     pkg_share = FindPackageShare(package='nsbot').find('nsbot')    
-    world_file_name = 'empty.world'
+    world_file_name = 'smalltown.world'
     world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
     world = LaunchConfiguration('world')
