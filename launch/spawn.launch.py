@@ -9,6 +9,8 @@ from launch.substitutions import Command
 from launch.actions import TimerAction
 import xacro
 
+
+
 def launch_setup(context, *args, **kwargs):
 
     x_spawn = LaunchConfiguration('x_spawn').perform(context)
@@ -20,25 +22,27 @@ def launch_setup(context, *args, **kwargs):
     ####### DATA INPUT ##########
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('nsbot'))
-    robot_file_path = os.path.join(pkg_path,'description','robot_core.xacro')
+    robot_file_path = os.path.join(pkg_path,'description','robot.urdf.xacro')
+    
+ 
 
     robot_state_publisher_node = Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
             name='robot_state_publisher',
+            namespace=entity_name,            
+        parameters=[{'frame_prefix': entity_name+'/','use_sim_time': True, 'robot_description': Command(['xacro ', robot_file_path, ' robot_name:=', entity_name])}],
+        output="screen"
+    )
+
+    joint_state_publisher_node = Node(
+            package='joint_state_publisher',
+            executable='joint_state_publisher',
+            name='joint_state_publisher',
             namespace=entity_name,
         parameters=[{'frame_prefix': entity_name+'/', 'use_sim_time': True, 'robot_description': Command(['xacro ', robot_file_path, ' robot_name:=', entity_name])}],
         output="screen"
     )
-
-#    joint_state_publisher_node = Node(
-#            package='joint_state_publisher',
-#           executable='joint_state_publisher',
-#            name='joint_state_publisher',
-#            namespace=entity_name,
-#        parameters=[{'frame_prefix': entity_name+'/', 'use_sim_time': True, 'robot_description': Command(['xacro ', robot_file_path, ' robot_name:=', entity_name])}],
-#        output="screen"
-#    )
 
     # Spawn ROBOT Set Gazebo
     start_gazebo_ros_spawner_cmd = Node(
@@ -57,7 +61,7 @@ def launch_setup(context, *args, **kwargs):
 
 
 
-    return [robot_state_publisher_node, start_gazebo_ros_spawner_cmd]
+    return [robot_state_publisher_node, joint_state_publisher_node, start_gazebo_ros_spawner_cmd]
 
 
 def generate_launch_description(): 

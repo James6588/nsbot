@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="nsbot" >
 
-    <xacro:arg name="robot_name" default=""/>
     
     <xacro:include filename="inertial_macros.xacro"/>
 
@@ -86,6 +85,7 @@
     <gazebo reference="left_wheel">
         <material>Gazebo/Blue</material>
     </gazebo>
+
     <!-- RIGHT WHEEL LINK -->
 
     <joint name="right_wheel_joint" type="continuous">
@@ -114,6 +114,7 @@
     <gazebo reference="right_wheel">
         <material>Gazebo/Blue</material>
     </gazebo>
+
     <!-- CASTER WHEEL LINK -->
 
     <joint name="caster_wheel_joint" type="fixed">
@@ -145,94 +146,6 @@
         <mu2 value="0.001"/>
     </gazebo>    
 
-<!-- Define LIDAR -->
-    <joint name="laser_joint" type="fixed">
-        <parent link="chassis"/>
-        <child link="laser_link"/>
-        <origin xyz="0.1 0 0.175" rpy="0 0 0"/>
-    </joint>
 
-    <link name="laser_link">
-        <visual>
-            <geometry>
-                <cylinder radius="0.05" length="0.04"/>
-            </geometry>
-            <material name="red"/>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder radius="0.05" length="0.04"/>
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder mass="0.1" length="0.04" radius="0.05">
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-        </xacro:inertial_cylinder>
-    </link>
-
-    <material name="red">
-        <color rgba="1 0 0 1"/>
-    </material>
-    <gazebo reference="laser_link">
-        <material>Gazebo/Red</material>
-        <sensor name="laser" type="ray">
-            <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
-            <ray> 
-                <scan>
-                    <horizontal>
-                        <samples>360</samples>
-                        <min_angle>-3.14</min_angle>
-                        <max_angle>3.14</max_angle>
-                    </horizontal>
-                </scan>
-                <range>
-                    <min>0.3</min>
-                    <max>12</max>
-                </range>
-            </ray>
-            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
-                <ros>
-                    <argument>~/out:=scan</argument>
-                </ros> 
-                <output_type>sensor_msgs/LaserScan</output_type>
-                <frame_name>laser_link</frame_name>
-            </plugin>
-
-        </sensor>
-    </gazebo>
-
-    
-    <gazebo>
-        <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
-            
-            <ros>
-           <!-- <namespace>/</namespace>
-                <argument>cmd_vel:=cmd_vel</argument>
-                <argument>odom:=odom</argument>   -->
-            </ros>
-            <!-- Wheel Information -->
-            <left_joint>left_wheel_joint</left_joint>
-            <right_joint>right_wheel_joint</right_joint>
-            <wheel_separation>0.35</wheel_separation>
-            <wheel_diameter>0.1</wheel_diameter>
-    
-
-            <!-- Limits -->
-            <max_wheel_torque>200</max_wheel_torque>
-            <max_wheel_acceleration>10.0</max_wheel_acceleration>
-    
-
-            <!-- Output -->
-            <odometry_frame>$(arg robot_name)/odom</odometry_frame>
-            <robot_base_frame>$(arg robot_name)/base_link</robot_base_frame>
-
-            <publish_odom>true</publish_odom>
-            <publish_odom_tf>true</publish_odom_tf>
-            <publish_wheel_tf>true</publish_wheel_tf>
-    
-    
-        </plugin>
-    </gazebo>
        
 </robot>

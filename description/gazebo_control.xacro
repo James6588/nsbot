@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+
     
     <gazebo>
         <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
-    
             <ros>
-               <!-- <namespace>robot_1</namespace>
-                <argument>cmd_vel:=cmd_vel</argument>
-                <argument>odom:=odom</argument>   -->
-            </ros>
+                <!-- <argument>/tf:=/$(arg robot_name)/tf</argument>  -->
+        
+            </ros> 
             <!-- Wheel Information -->
             <left_joint>left_wheel_joint</left_joint>
             <right_joint>right_wheel_joint</right_joint>
@@ -23,12 +22,19 @@
     
 
             <!-- Output -->
-            <odometry_frame>odom</odometry_frame>
-            <robot_base_frame>base_link</robot_base_frame>
+            <odometry_frame>$(arg robot_name)/odom</odometry_frame>
+            <robot_base_frame>$(arg robot_name)/base_link</robot_base_frame>
+            <odometrySource>0</odometrySource>
 
-            <publish_odom>true</publish_odom>
-            <publish_odom_tf>true</publish_odom_tf>
-            <publish_wheel_tf>true</publish_wheel_tf>
+            <publish_odom>True</publish_odom>
+            <publish_odom_tf>True</publish_odom_tf>
+            <publish_wheel_tf>False</publish_wheel_tf>
+            <publishWheelJointState>True</publishWheelJointState>
+ 
+            <!--
+           
+            
+            -->
     
     
         </plugin>
